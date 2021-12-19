@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-sidecar-pod
+  labels:
+    name: my-sidecar-pod
+spec:
+  volumes:
+    - name: html
+      emptyDir: {}
+  containers:
+  - name: my-init-container
+    image: alpine:3.15.0
+    volumeMounts:
+      - name:  html
+        mountPath:  /html
+    resources:
+      limits:
+        memory: "16Mi"
+        cpu: "10m"
+    command: ["/bin/sh", "-c"]
+    args:
+      - sleep 3; while true; do echo "$(date)<br>" >> /html/index.html; sleep 5; done
+  - name: my-sidecar-pod
+    image: nginx:1.21.4-alpine
+    volumeMounts:
+      - name:  html
+        mountPath:  /usr/share/nginx/html
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "100m"
+    readinessProbe:
+      httpGet:
+        path: /index.html
+        port: 80
+      periodSeconds: 5
+      failureThreshold: 3
+    ports:
+      - containerPort: 80
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  my-sidecar-pod-service
+spec:
+  selector:
+    name:  my-sidecar-pod
+  type:  NodePort
+  ports:
+  - name:  http
+    port:  80
+    targetPort:  80
+    nodePort: 30001
