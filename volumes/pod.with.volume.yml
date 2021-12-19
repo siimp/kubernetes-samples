@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-volume
+  labels:
+    name: pod-with-volume
+spec:
+  volumes:
+    - name: 1g-storage
+      persistentVolumeClaim:
+        claimName: pv0001
+  containers:
+  - name: pod-with-volume
+    image: alpine:latest
+    command:
+      - "/bin/sh"
+      - "-c"
+      - "date >> /data/date.txt"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    volumeMounts:
+      - mountPath: /data
+        name: 1g-storage
