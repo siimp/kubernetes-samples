@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx-service
+  labels:
+    name: my-nginx-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-nginx-deployment
+  ports:
+  - name: my-nginx-deployment-port
+    port: 8080
+    targetPort: 80

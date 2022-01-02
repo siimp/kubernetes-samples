@@ -46,7 +46,7 @@ kubectl get cronjobs --show-labels
 ### Redis pod and redis-cli
 ```bash
 kubectl run my-redis --image=redis:6.2.6-alpine
-kubectl port-forward my-redis 6379:6379
+kubectl port-forward pods/my-redis 6379:6379
 # for redis-cli
 kubectl exec my-redis -it  -- redis-cli
 kubectl delete pod my-redis
