@@ -12,6 +12,12 @@ kubectl api-resources
 kubectl get all --show-labels
 ```
 
+## Config
+```bash
+kubectl config view
+kubectl config get-contexts
+```
+
 ## Namespaces
 ```bash
 kubectl get namespaces --show-labels
