@@ -30,6 +30,8 @@ kubectl config set-context --current --namespace=my-namespace
 ## Pods
 ```bash
 kubectl get pods --show-labels
+# Show QoS of a pod
+kubectl get pod my-pod --namespace=my-namespace --output jsonpath='{.status.qosClass}'
 ```
 
 ## Deployments
