@@ -9,5 +9,5 @@ Hostpath volumes are inside mnt/sda1/hostpath-provisioner/default
 
 
 ## Other resources
-https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-https://github.com/kubernetes/examples
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/  
+https://github.com/kubernetes/examples  
