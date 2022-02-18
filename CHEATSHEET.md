@@ -59,3 +59,8 @@ kubectl port-forward pods/my-redis 6379:6379
 kubectl exec my-redis -it  -- redis-cli
 kubectl delete pod my-redis
 ```
+
+### Excec to shell
+````bash
+kubectl exec --stdin --tty deployments/my-app -- /bin/sh
+````
