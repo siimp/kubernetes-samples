@@ -48,6 +48,13 @@ kubectl get jobs --show-labels
 kubectl get cronjobs --show-labels
 ```
 
+## Debugging
+```bash
+kubectl get deployments/java-app-with-appdynamics --watch
+kubectl logs deployments/app
+kubectl describe deployments/app
+kubectl exec --stdin --tty deployments/app -- /bin/sh
+```
 
 ## Samples
 
