@@ -6,7 +6,7 @@ kubectl config set-context --current --namespace=blue-green
 ## Service
 ```bash
 kubectl apply -f service.yml
-curl -s http://localhost:30000
+go run requests.go
 ```
 
 ## Blue
