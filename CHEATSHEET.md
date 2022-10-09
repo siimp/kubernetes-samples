@@ -39,6 +39,7 @@ kubectl get pod my-pod --namespace=my-namespace --output jsonpath='{.status.qosC
 kubectl get deployment --show-labels
 kubectl describe deployment my-nginx-deployment
 kubectl apply -f ./deployments/nginx/.k8s
+kubectl rollout status deployment my-nginx-deployment --watch
 kubectl delete -f ./deployments/nginx/.k8s
 ```
 

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx-green
+  namespace: blue-green
+  labels:
+    app: my-nginx
+    role: green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-nginx
+      role: green
+  template:
+    metadata:
+      labels:
+        app: my-nginx
+        role: green
+    spec:
+      volumes:
+      - name: html
+        emptyDir: {}
+      - name: confd
+        emptyDir: {}
+      containers:
+      - name: my-nginx-deployment
+        image: nginx:1.23-alpine
+        volumeMounts:
+          - name:  html
+            mountPath:  /usr/share/nginx/html
+          - name:  confd
+            mountPath:  /etc/nginx/conf.d
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "32Mi"
+            cpu: "50m"
+        readinessProbe:
+          httpGet:
+            path: /index.html
+            port: 80
+          periodSeconds: 2
+          failureThreshold: 30
+          initialDelaySeconds: 15
+        ports:
+          - containerPort: 80
+      initContainers:
+      - name: my-init
+        image: alpine:3.16
+        volumeMounts:
+          - name:  html
+            mountPath:  /html
+          - name:  confd
+            mountPath:  /confd
+        command: ["/bin/sh", "-c", "echo '<body style=\"background-color:lightgreen\"><h1>This is GREEN app</h1><body>' > html/index.html && printf 'server {\nlisten       80;\nlisten  [::]:80;\nserver_name  localhost;\nlocation / {\nroot   /usr/share/nginx/html;\nindex  index.html index.htm;\nadd_header Last-Modified $date_gmt;\nadd_header Cache-Control no-store,no-cache,must-revalidate,proxy-revalidate,max-age=0;\nif_modified_since off;\nexpires off;\netag off;\nkeepalive_timeout 0;\n}\n}\n' > confd/default.conf"]
