@@ -1,5 +1,6 @@
 ## Setup
 ```bash
+kubectl delete namespace blue-green
 kubectl create namespace blue-green
 kubectl config set-context --current --namespace=blue-green
 ```
@@ -9,23 +10,22 @@ kubectl apply -f service.yml
 go run requests.go
 ```
 
-## Blue
+## Blue (v1.0.0)
 ```bash
 kubectl apply -f deployment-blue.yml
-kubectl rollout status deployment my-nginx-blue --watch
+kubectl rollout status deployment my-nginx-v1.0.0 --watch
 ```
 
 
-## Green
+## Green (v1.0.1)
 ```bash
 kubectl apply -f deployment-green.yml
-kubectl rollout status deployment my-nginx-green --watch
+kubectl rollout status deployment my-nginx-v1.0.1 --watch
 ```
 
 
 ## Blue-Green Deployment
 ```bash
-kubectl set selector service blue-green-service "app=my-nginx,role=green"
-kubectl set selector replica my-nginx-green "app=my-nginx,role=blue"
-
+kubectl set selector service blue-green-service "app=my-nginx,role=v1.0.1"
+kubectl delete deployment my-nginx-v1.0.0
 ```

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx-blue
+  name: my-nginx-v1.0.0
   namespace: blue-green
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: my-nginx
-      role: blue
+      role: v1.0.0
   template:
     metadata:
       labels:
         app: my-nginx
-        role: blue
+        role: v1.0.0
     spec:
       volumes:
       - name: html
@@ -52,4 +52,4 @@ spec:
             mountPath:  /html
           - name:  confd
             mountPath:  /confd
-        command: ["/bin/sh", "-c", "echo '<body style=\"background-color:lightblue\"><h1>This is BLUE app</h1><body>' > html/index.html && printf 'server {\nlisten       80;\nlisten  [::]:80;\nserver_name  localhost;\nlocation / {\nroot   /usr/share/nginx/html;\nindex  index.html index.htm;\nadd_header Last-Modified $date_gmt;\nadd_header Cache-Control no-store,no-cache,must-revalidate,proxy-revalidate,max-age=0;\nif_modified_since off;\nexpires off;\netag off;\nkeepalive_timeout 0;\n}\n}\n' > confd/default.conf"]
+        command: ["/bin/sh", "-c", "echo '<body style=\"background-color:lightblue\"><h1>This is v1.0.0 (BLUE) app</h1><body>' > html/index.html && printf 'server {\nlisten       80;\nlisten  [::]:80;\nserver_name  localhost;\nlocation / {\nroot   /usr/share/nginx/html;\nindex  index.html index.htm;\nadd_header Last-Modified $date_gmt;\nadd_header Cache-Control no-store,no-cache,must-revalidate,proxy-revalidate,max-age=0;\nif_modified_since off;\nexpires off;\netag off;\nkeepalive_timeout 0;\n}\n}\n' > confd/default.conf"]
