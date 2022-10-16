@@ -26,4 +26,6 @@ kubectl rollout status deployment my-nginx-green --watch
 ## Blue-Green Deployment
 ```bash
 kubectl set selector service blue-green-service "app=my-nginx,role=green"
+kubectl set selector replica my-nginx-green "app=my-nginx,role=blue"
+
 ```

@@ -3,20 +3,13 @@ kind: Deployment
 metadata:
   name: my-nginx-green
   namespace: blue-green
-  labels:
-    app: my-nginx
-    role: green
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: my-nginx
-      role: green
   template:
     metadata:
       labels:
         app: my-nginx
-        role: green
+        role: blue
     spec:
       volumes:
       - name: html

@@ -7,7 +7,7 @@ spec:
   type: NodePort
   selector:
     app: my-nginx
-    role: green
+    role: blue
   ports:
   - port: 80
     targetPort: 80
