@@ -8,16 +8,14 @@ import (
 )
 
 func main() {
-	client := &http.Client{}
-
 	for {
-		request(client)
+		request()
 		time.Sleep(2 * time.Second)
 	}
 }
 
-func request(httpClient *http.Client) {
-	resp, err := httpClient.Get("http://localhost:30000")
+func request() {
+	resp, err := http.Get("http://localhost:30000")
 	if err != nil {
 		log.Println(err.Error())
 		return
