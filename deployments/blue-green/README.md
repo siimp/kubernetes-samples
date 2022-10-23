@@ -27,7 +27,7 @@ kubectl rollout status deployment my-nginx-v1.0.1 --watch
 ## Blue-Green Deployment
 ```bash
 kubectl set selector service blue-green-service "app=my-nginx,role=v1.0.1"
-kubectl delete deployment my-nginx-v1.0.0
+kubectl delete deployment -l "app=my-nginx,role!=v1.0.1"
 ```
 
 ## Info

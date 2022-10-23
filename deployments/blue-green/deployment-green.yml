@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: my-nginx-v1.0.1
   namespace: blue-green
+  labels:
+    app: my-nginx
+    role: v1.0.1
 spec:
   replicas: 1
   selector:
