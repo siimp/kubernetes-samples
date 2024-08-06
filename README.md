@@ -20,7 +20,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 minikube config set rootless true
 minikube config set driver podman
 minikube config set container-runtime containerd
-minikube start --kubernetes-version=v1.26.4
+minikube start --kubernetes-version=v1.29.7 --memory 4096 --cpus=4
 ```
 ```
 # if cpu delegate fails
